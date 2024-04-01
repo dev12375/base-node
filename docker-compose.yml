@@ -11,7 +11,7 @@ services:
       - 7301:6060       # metrics
     command: [ "bash", "./geth-entrypoint" ]
     volumes:
-        - ${GETH_HOST_DATA_DIR}:/data
+        - /root/base-chain-node/data/snapshots/mainnet/download/geth:/data
     env_file:
       # select your network here:
 #      - .env.sepolia

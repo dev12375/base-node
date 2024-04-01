@@ -1,8 +1,8 @@
 #!/bin/bash
 set -eu
-PROJECT_DIR=/root/base-node
+
 VERBOSITY=${GETH_VERBOSITY:-3}
-GETH_DATA_DIR=${PROJECT_DIR}/data/snapshots/mainnet/download/geth/
+GETH_DATA_DIR=/data
 RPC_PORT="${RPC_PORT:-8545}"
 WS_PORT="${WS_PORT:-8546}"
 AUTHRPC_PORT="${AUTHRPC_PORT:-8551}"
@@ -18,15 +18,7 @@ if [[ -z "$OP_NODE_NETWORK" ]]; then
     exit 1
 fi
 
-if [ -d "$GETH_DATA_DIR" ]; then
-    # 如果目录存在，则打印目录大小
-    echo "$GETH_DATA_DIR 目录已存在，大小为：$(du -sh "$GETH_DATA_DIR" | cut -f1)"
-else
-    # 如果目录不存在，则创建目录
-    mkdir -p "$GETH_DATA_DIR"
-    echo "目录已创建：$GETH_DATA_DIR"
-fi
-# mkdir -p $GETH_DATA_DIR
+mkdir -p $GETH_DATA_DIR
 
 echo "$OP_NODE_L2_ENGINE_AUTH_RAW" > "$OP_NODE_L2_ENGINE_AUTH"
 

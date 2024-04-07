@@ -55,7 +55,7 @@ exec ./geth \
     --ws.addr=0.0.0.0 \
     --ws.port="$WS_PORT" \
     --ws.origins="*" \
-    --ws.api=debug,eth,web3,txpool,net,engine \
+    --ws.api=web3,debug,eth,txpool,net,engine \
     --metrics \
     --metrics.addr=0.0.0.0 \
     --metrics.port="$METRICS_PORT" \

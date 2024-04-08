@@ -41,7 +41,7 @@ fi
 exec ./geth \
     --datadir="$GETH_DATA_DIR" \
     --verbosity="$VERBOSITY" \
-    --syncmode=snap \
+    --syncmode=full \
     --http \
     --http.corsdomain="*" \
     --http.vhosts="*" \

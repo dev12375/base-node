@@ -10,8 +10,8 @@ METRICS_PORT="${METRICS_PORT:-6060}"
 HOST_IP="0.0.0.0"
 P2P_PORT="${P2P_PORT:-30303}"
 ADDITIONAL_ARGS=""
-OP_GETH_GCMODE="${OP_GETH_GCMODE:-archive}"
-OP_GETH_SYNCMODE="${OP_GETH_SYNCMODE:-snap}"
+OP_GETH_GCMODE="${OP_GETH_GCMODE:-full}"
+OP_GETH_SYNCMODE="${OP_GETH_SYNCMODE:-full}"
 
 if [[ -z "$OP_NODE_NETWORK" ]]; then
     echo "expected OP_NODE_NETWORK to be set" 1>&2
@@ -41,7 +41,6 @@ fi
 exec ./geth \
     --datadir="$GETH_DATA_DIR" \
     --verbosity="$VERBOSITY" \
-    --syncmode=full \
     --http \
     --http.corsdomain="*" \
     --http.vhosts="*" \

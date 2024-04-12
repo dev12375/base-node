@@ -41,11 +41,17 @@ install_go(){
     sed -i '1 a export PATH=$PATH:/usr/local/go/bin' $HOME/.zshrc
 }
 
+install_nodejs_npm
+install_go
+install_node
+
 install_node(){
     source $HOME/.zshrc
     npm install yarn pm2 ts-node -g
 }
 
-install_nodejs_npm
-install_go
-install_node
+snap_shot_base() {
+    mkdir -p $HOME/base-chain-node/data
+    filename=$(curl -s https://mainnet-full-snapshots.base.org/latest)
+    wget "https://mainnet-full-snapshots.base.org/$filename" && tar -xzvf "$filename" -C $HOME/base-chain-node/data
+}

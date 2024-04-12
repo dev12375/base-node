@@ -14,5 +14,4 @@ snap_shot_base() {
 source $HOME/.zshrc
 install_node()
 tmux new -s base
-
 snap_shot_base()

@@ -1,7 +1,9 @@
 #!/bin/bash
 install_dep(){
     apt-get update
-    apt-get install -y git gcc g++ zsh aria2 make net-tools tmux
+    apt-get install -y git gcc g++ zsh aria2 make net-tools tmux jq
+    chsh -s /usr/bin/zsh
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y
 }
 
 install_docker(){
@@ -40,18 +42,6 @@ install_go(){
     rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.2.linux-amd64.tar.gz
     sed -i '1 a export PATH=$PATH:/usr/local/go/bin' $HOME/.zshrc
 }
-
+install_dep
 install_nodejs_npm
 install_go
-install_node
-
-install_node(){
-    source $HOME/.zshrc
-    npm install yarn pm2 ts-node -g
-}
-
-snap_shot_base() {
-    mkdir -p $HOME/base-chain-node/data
-    filename=$(curl -s https://mainnet-full-snapshots.base.org/latest)
-    wget "https://mainnet-full-snapshots.base.org/$filename" && tar -xzvf "$filename" -C $HOME/base-chain-node/data
-}

@@ -1,8 +1,14 @@
-#!/bin/bash
-install_dep(){
-    apt-get update
-    apt-get install -y git gcc g++ zsh aria2 make net-tools tmux jq
-    chsh -s /usr/bin/zsh
+zsh_config(){
+    # 0. download zsh plugins
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
+
+    # 2. set bira theme
+    #  > ~/.zshrc.tmp
+    sed -i "s/ZSH_THEME=.*/ZSH_THEME=\"bira\"/" $HOME/.zshrc
+    sed -i "s/^plugins=(.*)$/plugins=( \n git z copypath copyfile copybuffer jsontools history \n zsh-autosuggestions \n zsh-syntax-highlighting \n zsh-history-substring-search \n)/" $HOME/.zshrc
+    echo 'export PATH=$PATH:/usr/local/bin/' >> $HOME/.zshrc
 }
 
 install_docker(){
@@ -41,8 +47,8 @@ install_go(){
     rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.2.linux-amd64.tar.gz
     sed -i '1 a export PATH=$PATH:/usr/local/go/bin' $HOME/.zshrc
 }
-install_dep
+
+install_docker
 install_nodejs_npm
 install_go
-install_docker
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y
+zsh_config

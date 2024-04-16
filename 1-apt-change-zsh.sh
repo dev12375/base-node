@@ -9,7 +9,7 @@ install_dep(){
 
 change_zsh(){
     chsh -s /usr/bin/zsh
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y
+    sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 }
 change_ssh(){
     cp /etc/ssh/sshd_config /etc/ssh/sshd_config_backup

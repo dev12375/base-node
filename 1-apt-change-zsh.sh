@@ -9,7 +9,8 @@ install_dep(){
 
 change_zsh(){
     chsh -s /usr/bin/zsh
-    sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+    curl -Lo install.sh https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    sh install.sh --unattended
 }
 change_ssh(){
     cp /etc/ssh/sshd_config /etc/ssh/sshd_config_backup

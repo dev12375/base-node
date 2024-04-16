@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# 获取内存资源
+memory_info=$(free -h | awk 'NR==2{print "总内存：" $2 ", 可用内存：" $7 ", 已用内存：" $3}')
+echo "$memory_info"
 
 # 统计物理 CPU 数量
 physical_cpu=$(cat /proc/cpuinfo | grep 'physical id' | sort | uniq | wc -l)
@@ -27,7 +30,8 @@ echo "已用存储空间：$used_storage"
 
 # 使用curl获取外部IP地址
 external_ip=$(curl -s ifconfig.me)
-echo "外部机器的IP地址：$external_ip"
+echo "机器的外部IP地址：$external_ip"
+
 # 获取机器的 IP 地址
 machine_ip=$(hostname -I)
 echo "机器的 IP 地址：$machine_ip"

@@ -43,12 +43,24 @@ install_nodejs_npm() {
 }
 
 install_go(){
-    wget https://go.dev/dl/go1.22.2.linux-amd64.tar.gz
-    rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.2.linux-amd64.tar.gz
+    gotar="go1.22.2.linux-amd64.tar.gz"
+    wget https://go.dev/dl/$gotar
+    rm -rf /usr/local/go && tar -C /usr/local -xzf $gotar
     sed -i '1 a export PATH=$PATH:/usr/local/go/bin' $HOME/.zshrc
 }
 
+change_docker_dir(){
+    newpath=/data/docker
+    docker info | grep "Docker Root Dir"
+    service docker stop
+    mkdir -p $newpath
+    mv /var/lib/docker $newpath
+    ln -sf $newpath /var/lib/docker
+    service docker start
+}
+
 install_docker
+change_docker_dir
 install_nodejs_npm
 install_go
 zsh_config

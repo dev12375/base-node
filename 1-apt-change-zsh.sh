@@ -1,7 +1,7 @@
 #!/bin/bash
 install_dep(){
     apt-get update
-    apt-get install -y git gcc g++ zsh aria2 make net-tools tmux jq
+    apt-get install -y git gcc g++ zsh aria2 make net-tools tmux jq pigz
 }
 
 

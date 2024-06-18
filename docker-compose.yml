@@ -4,16 +4,19 @@ services:
       context: .
       dockerfile: ${CLIENT}/Dockerfile
     ports:
-      - "8545:8545"       # RPC
-      - "8546:8546"       # websocket
-      - "7301:6060"       # metrics
+      - 22301:8545       # RPC
+      - 22302:8546       # websocket
+      - 22303:30303     # P2P TCP (currently unused)
+      - 22303:30303/udp # P2P UDP (currently unused)
+      - 22304:6060       # metrics
+      - 22305:8551
     command: [ "bash", "./execution-entrypoint" ]
     volumes:
-        - ${HOST_DATA_DIR}:/data
+      - /data/base-chain-node/chain-data/snapshots/mainnet/download/geth:/data
     env_file:
       # select your network here:
 #      - .env.sepolia
-#      - .env.mainnet
+      - .env.mainnet
   node:
     build:
       context: .
@@ -21,13 +24,13 @@ services:
     depends_on:
       - execution
     ports:
-      - "7545:8545"     # RPC
-      - "9222:9222"     # P2P TCP
-      - "9222:9222/udp" # P2P UDP
-      - "7300:7300"     # metrics
-      - "6060:6060"     # pprof
+      - 22306:8545     # RPC
+      - 22307:9222     # P2P TCP
+      - 22307:9222/udp # P2P UDP
+      - 22308:7300     # metrics
+      - 22309:6060     # pprof
     command: [ "bash", "./op-node-entrypoint" ]
     env_file:
       # select your network here:
 #      - .env.sepolia
-#      - .env.mainnet
+      - .env.mainnet
